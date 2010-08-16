@@ -22,7 +22,7 @@ namespace QtTestUtil {
 		public:
 			TestRegistration() {
 				test_ = new TestClass();
-				TestRegistry::getInstance()->registerTest(test_);
+                TestRegistry::getInstance()->registerTest(test_);
 			}
 
 			~TestRegistration() {
@@ -31,6 +31,7 @@ namespace QtTestUtil {
 		
 		private:
 			TestClass* test_;
+      QString className_;
 	};
 
 }

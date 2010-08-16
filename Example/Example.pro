@@ -11,8 +11,8 @@ CONFIG -= app_bundle
 TARGET = checker
 
 SOURCES += \
-	MyFirstClasstest.cpp \
-	MySecondClasstest.cpp \
+    MyFirstClassTest.cpp \
+    MySecondClassTest.cpp \
 	../QtTestUtil/SimpleChecker.cpp
 
 # Add an extra 'make check' target.

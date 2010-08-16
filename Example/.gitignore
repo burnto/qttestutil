@@ -1,0 +1,5 @@
+*.o
+*.moc
+*.pro.user
+Makefile
+checker

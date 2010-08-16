@@ -8,6 +8,7 @@
 #define QtTestUtil_TestRegistry_H
 
 #include <QList>
+#include <QStringList>
 
 class QObject;
 
@@ -32,17 +33,30 @@ namespace QtTestUtil {
 			 * not use this method directly.
 			 */
 			void registerTest(QObject*);
+			/**
+			 * Register a QtTest test. 
+			 * This method is called  by QTTESTUTIL_REGISTER_TEST, and you should 
+			 * not use this method directly.
+			 */
+			void registerTest(QString, QObject*);
 
 			/**
 			 * Run all registered tests using QTest::qExec()
 			 */
 			int runTests(int argc, char* argv[]);
 
+            /**
+             * Run all registered tests using QTest::qExec()
+             */
+
+            int runTests(QStringList args);
+
+
 		private:
 			TestRegistry() {}
 		
 		private:
-			QList<QObject*> tests_;
+            QList<QObject* > tests_;
 	};
 }
 
