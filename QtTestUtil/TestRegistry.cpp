@@ -27,13 +27,22 @@ int TestRegistry::runTests(int argc, char* argv[]) {
 int TestRegistry::runTests(QStringList args) {
     int result = 0;
     int xunitoutFlagIndex = args.indexOf("-xunitout");
+    bool usingXUnitOut = (xunitoutFlagIndex >= 0 && args.length() > xunitoutFlagIndex + 1);
+    QDir outDir;
+    if(usingXUnitOut) {
+        outDir = QDir(args.at(xunitoutFlagIndex + 1));
+        QDir().mkpath(outDir.absolutePath());
+        args.removeAt(xunitoutFlagIndex);
+        args.removeAt(xunitoutFlagIndex);
+    }
 
     foreach(QObject *test, tests_) {
         QStringList testArgs = args;
-        if(xunitoutFlagIndex >= 0 && args.length() > xunitoutFlagIndex + 1) {
-            QDir outDir(args.at(xunitoutFlagIndex + 1));
+        if(usingXUnitOut) {
+            testArgs << "-xunitxml";
             testArgs << "-o";
-            testArgs << outDir.filePath(test->metaObject()->className());
+            QString outFile = QString("%1.xml").arg(outDir.absoluteFilePath(test->metaObject()->className()));
+            testArgs << outFile;
         }
         result |= QTest::qExec(test, testArgs);
     }
